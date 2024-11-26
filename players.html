@@ -43,5 +43,30 @@
             <div class="cardPlayers"></div>
         </div>
     </div>
+<script>
+const playerContainer = document.querySelectorAll('.cardPlayers');
 
+fetch('data/players.json')
+    .then((response) => response.json())
+    .then((data) => {
+        const players = data.players;
+
+        players.forEach((player, index) => {
+            const playerCard = document.createElement('div');
+            playerCard.className = 'bg-white border shadow-lg p-4 rounded flex flex-col items-center';
+            playerCard.innerHTML = `
+                <img src="${player.photo}" alt="${player.name}" class="w-16 h-16 rounded-full mb-2">
+                <h3 class="text-lg font-bold">${player.name}</h3>
+                <p class="text-gray-600">${player.position}</p>
+            `;
+
+            const containerIndex = index % playerContainer.length; 
+            playerContainer[containerIndex].appendChild(playerCard);
+        });
+    })
+    .catch((error) => {
+        console.error('Error loading players:', error);
+    });
+
+</script>
 </body>
