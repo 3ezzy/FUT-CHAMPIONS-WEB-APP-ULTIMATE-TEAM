@@ -1,46 +1,48 @@
 
-
 // Fetch players from JSON
 fetch('data/players.json')
     .then((response) => response.json())
     .then((data) => {
         const players = data.players;
-        displayPlayersInModal(players);
+
+        const playerContainer = document.getElementById('playersContainer');
+
+        players.forEach((player) => {
+            const playerCard = document.createElement('div');
+            playerCard.className = 'card flex flex-col items-center justify-between p-2';
+
+            playerCard.innerHTML = `
+                <div class="firt_part text-center">
+                    <div>${player.rating}</div>
+                    <div>${player.position}</div>
+                    <div class="name">${player.name}</div>
+                    <img src="${player.flag}" alt="Club logo" class="w-6 h-6">
+                </div>
+                <div class="player_img">
+                    <img src="${player.photo}" alt="${player.name}" class="w-16 h-16 rounded-full">
+                </div>
+                <div class="second_part">
+                    <div>
+                        <div>${player.position === 'GK' ? 'HAN' : 'SHO'} ${player.position === 'GK' ? player.handling : player.shooting}</div>
+                        <div>${player.position === 'GK' ? 'KIC' : 'PAS'} ${player.position === 'GK' ? player.kicking : player.passing}</div>
+                        <div>${player.position === 'GK' ? 'REF' : 'DRI'} ${player.position === 'GK' ? player.reflexes : player.dribbling}</div>
+                        <div>${player.position === 'GK' ? 'SPE' : 'DEF'} ${player.position === 'GK' ? player.speed : player.defending}</div>
+                        <div>${player.position === 'GK' ? 'POS' : 'PHY'} ${player.position === 'GK' ? player.positioning : player.physical}</div>
+                    </div>
+                </div>
+            `;
+            playerCard.addEventListener('click', () => {
+                selectPlayer(player); // Handle player selection
+                closeModal(); // Close modal
+            });
+            
+            playerContainer.appendChild(playerCard);
+        });
     })
-    .catch((error) => console.error('Error loading JSON:', error));
-
-// Display players in modal
-function displayPlayersInModal(players) {
-    const container = document.getElementById('playersContainer');
-    container.innerHTML = ''; // Clear previous content
-
-    players.forEach((player) => {
-        const playerCard = document.createElement('div');
-        playerCard.className = 'card flex flex-col items-center p-2 rounded-lg text-white';
-        playerCard.innerHTML = `
-            <div class="firt_part text-center">
-                <div class="font-bold">${player.rating}</div>
-                <div class="text-sm">${player.position}</div>
-                <div class="name">${player.name}</div>
-                <div><img src="${player.flag}" alt="Flag" class="w-6 h-6 inline-block"></div>
-            </div>
-            <div class="player_img mt-2">
-                <img src="${player.photo}" alt="${player.name}" class="w-16 h-16">
-            </div>
-            <div class="second_part mt-2 grid grid-cols-2 gap-x-2 gap-y-1 text-center text-xs">
-                <div>SHO: ${player.shooting}</div>
-                <div>PAS: ${player.passing}</div>
-                <div>DRI: ${player.dribbling}</div>
-                <div>DEF: ${player.defending}</div>
-                <div>PHY: ${player.physical}</div>
-            </div>
-        `;
-
-        // Add click event to handle selection logic
-        playerCard.addEventListener('click', () => selectPlayer(player));
-        container.appendChild(playerCard);
+    .catch((error) => {
+        console.error('Error loading players:', error);
     });
-}
+
 
 // Open modal
 function openModal() {
