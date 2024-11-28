@@ -4,3 +4,79 @@
     background: linear-gradient(to bottom, #479e3f 25%, #387d33 25%, #387d33 50%, #479e3f 50%, #479e3f 75%, #387d33 75%, #387d33 100%);
     background-size: 100% 100px;
 }
+
+
+.card {
+    background-image: url('img/squad-foundation-24.png');
+    background-size: cover;
+    background-position: center;
+    width: 170px;
+    height: 280px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 15px;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.05);
+    
+}
+
+.card img {
+    width: 100px; 
+    height: auto; 
+    /* margin-top: 10px;  */
+    object-fit: contain;
+}
+
+
+.firt_part {
+    /* display: flex; */
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.card .firt_part img {
+    width: 20px; 
+    height: auto; 
+    margin-left: 5px; 
+    object-fit: contain;
+    border-radius: 2px;
+   
+}
+
+
+.second_part {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    margin-bottom: 40px;
+    
+    text-align: left; 
+    font-size: 12px; 
+    line-height: 1.6; 
+    padding: 10px; 
+}
+
+.second_part div {
+    display: flex;
+    justify-content: space-between; 
+    width: 135px;
+    gap: 10px; 
+    font-weight: 600; 
+}
+
+
+
+
+
+
+

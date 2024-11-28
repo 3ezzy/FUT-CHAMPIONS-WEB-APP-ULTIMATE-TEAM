@@ -26,47 +26,49 @@
         </div>
     </nav>
 
-    <div class="min-h-screen h-full w-full pt-16 flex justify-center">
-        <!-- LineUp Builder -->
-        <div class="min-h-screen grid h-4/5 grid-cols-4 grid-rows-3 gap-4 mb-32 bg-contain ml-6 bg-no-repeat ">
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-            <div class="cardPlayers"></div>
-        </div>
+    <div id="playerContainer" class="grid grid-cols-4 gap-4 mt-24">
+        <!-- Dynamic player cards will be injected here -->
     </div>
-<script>
-const playerContainer = document.querySelectorAll('.cardPlayers');
+    <script>
+        const playerContainer = document.getElementById('playerContainer');
 
-fetch('data/players.json')
-    .then((response) => response.json())
-    .then((data) => {
-        const players = data.players;
+        // Fetch data
+        fetch('data/players.json')
+            .then((response) => response.json())
+            .then((data) => {
+                const players = data.players;
 
-        players.forEach((player, index) => {
-            const playerCard = document.createElement('div');
-            playerCard.className = 'bg-white border shadow-lg p-4 rounded flex flex-col items-center';
-            playerCard.innerHTML = `
-                <img src="${player.photo}" alt="${player.name}" class="w-16 h-16 rounded-full mb-2">
-                <h3 class="text-lg font-bold">${player.name}</h3>
-                <p class="text-gray-600">${player.position}</p>
+                players.forEach((player) => {
+                    const playerCard = document.createElement('div');
+                    playerCard.className = 'card flex flex-col items-center justify-between p-2';
+                    playerCard.innerHTML = `
+                <div class="firt_part text-center">
+                    <div>${player.rating}</div>
+                    <div>${player.position}</div>
+                    <div class="name">${player.name}</div>
+                    <img src="${player.flag}" alt="Club logo" class="w-6 h-6">
+                </div>
+                <div class="player_img">
+                    <img src="${player.photo}" alt="${player.name}" class="w-16 h-16 rounded-full">
+                </div>
+                <div class="second_part">
+                    <div>
+                        <div>SHO ${player.shooting}</div>
+                        <div>PAS ${player.passing}</div>
+                        <div>DRI ${player.dribbling}</div>
+                        <div>DEF ${player.defending}</div>
+                        <div>PHY ${player.physical}</div>
+                    
+                    </div>
+                </div>
             `;
+                    playerContainer.appendChild(playerCard);
+                });
+            })
+            .catch((error) => {
+                console.error('Error loading players:', error);
+            });
 
-            const containerIndex = index % playerContainer.length; 
-            playerContainer[containerIndex].appendChild(playerCard);
-        });
-    })
-    .catch((error) => {
-        console.error('Error loading players:', error);
-    });
 
-</script>
+    </script>
 </body>

@@ -16,16 +16,27 @@ function displayPlayersInModal(players) {
 
     players.forEach((player) => {
         const playerCard = document.createElement('div');
-        playerCard.className =
-            'flex items-center p-2 border rounded cursor-pointer hover:bg-gray-100';
+        playerCard.className = 'card flex flex-col items-center p-2 bg-black rounded-lg text-white shadow-md';
         playerCard.innerHTML = `
-      <img src="${player.photo}" alt="${player.name}" class="w-12 h-12 rounded-full mr-2">
-      <div>
-        <p class="font-bold">${player.name}</p>
-        <p class="text-sm text-gray-500">${player.position}</p>
-        <p class="text-sm text-gray-500">${player.nationality}</p>
-      </div>
-    `;
+            <div class="firt_part text-center">
+                <div class="font-bold">${player.rating}</div>
+                <div class="text-sm">${player.position}</div>
+                <div class="name">${player.name}</div>
+                <div><img src="${player.flag}" alt="Flag" class="w-6 h-6 inline-block"></div>
+            </div>
+            <div class="player_img mt-2">
+                <img src="${player.photo}" alt="${player.name}" class="w-16 h-16">
+            </div>
+            <div class="second_part mt-2 grid grid-cols-2 gap-x-2 gap-y-1 text-center text-xs">
+                <div>SHO: ${player.shooting}</div>
+                <div>PAS: ${player.passing}</div>
+                <div>DRI: ${player.dribbling}</div>
+                <div>DEF: ${player.defending}</div>
+                <div>PHY: ${player.physical}</div>
+            </div>
+        `;
+
+        // Add click event to handle selection logic
         playerCard.addEventListener('click', () => selectPlayer(player));
         container.appendChild(playerCard);
     });
