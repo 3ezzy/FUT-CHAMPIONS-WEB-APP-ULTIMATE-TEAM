@@ -16,7 +16,7 @@ function displayPlayersInModal(players) {
 
     players.forEach((player) => {
         const playerCard = document.createElement('div');
-        playerCard.className = 'card flex flex-col items-center p-2 bg-black rounded-lg text-white shadow-md';
+        playerCard.className = 'card flex flex-col items-center p-2 rounded-lg text-white';
         playerCard.innerHTML = `
             <div class="firt_part text-center">
                 <div class="font-bold">${player.rating}</div>
