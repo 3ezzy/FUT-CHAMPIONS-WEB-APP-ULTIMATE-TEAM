@@ -3,6 +3,7 @@
 .field {
     background: linear-gradient(to bottom, #479e3f 25%, #387d33 25%, #387d33 50%, #479e3f 50%, #479e3f 75%, #387d33 75%, #387d33 100%);
     background-size: 100% 100px;
+    
 }
 
 
@@ -73,6 +74,7 @@
     gap: 10px; 
     font-weight: 600; 
 }
+
 
 
 
