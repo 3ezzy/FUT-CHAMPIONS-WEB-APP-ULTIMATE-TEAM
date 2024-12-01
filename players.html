@@ -11,19 +11,37 @@
 
 <body class="flex flex-col items-center min-h-screen bg-gray-100 gap-7">
     <nav class="bg-green-700 text-white shadow-lg w-full">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4 flex-wrap">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
+
             <a href="#" class="text-2xl font-bold hover:text-gray-300">Squad Builder</a>
-            <div class="flex space-x-6 flex-wrap">
+
+
+            <button id="menuToggle" class="md:hidden text-gray-300 focus:outline-none">
+                ☰
+            </button>
+
+
+            <div id="navLinks" class="hidden md:flex space-x-6">
                 <a href="index.html" class="hover:text-gray-300">Pick up Team</a>
                 <a href="players.html" class="hover:text-gray-300">Players</a>
             </div>
         </div>
     </nav>
 
+
     <div id="playerContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-24 px-4">
         <!-- Player cards will be injected here -->
     </div>
     <script>
+
+
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('hidden');
+    navLinks.classList.toggle('flex');
+});
         const playerContainer = document.getElementById('playerContainer');
 
         // Fetch data

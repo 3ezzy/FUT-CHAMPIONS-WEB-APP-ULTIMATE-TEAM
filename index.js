@@ -1,3 +1,12 @@
+
+const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+        });
+
 // Fetch players from JSON and display them
 function fetchPlayers(callback) {
     fetch('data/players.json')
@@ -12,10 +21,9 @@ function fetchPlayers(callback) {
 
 // Display filtered players in the modal
 function displayPlayers(players, container) {
-    container.innerHTML = ''; // Clear previous content
+    container.innerHTML = ''; 
 
     players.forEach((player) => {
-        // Calculate stats based on player position
         const stats = player.position === 'GK' 
             ? `
                 <div>HAN ${player.handling}</div>
@@ -53,8 +61,8 @@ function displayPlayers(players, container) {
         `;
 
         playerCard.addEventListener('click', () => {
-            selectPlayer(player); // Handle player selection
-            closeModal(); // Close modal
+            selectPlayer(player); 
+            closeModal(); 
         });
 
         container.appendChild(playerCard);
@@ -62,12 +70,12 @@ function displayPlayers(players, container) {
 }
 
 
-// Open modal
+
 function openModal() {
     document.getElementById('playerModal').classList.remove('hidden');
 }
 
-// Close modal
+
 function closeModal() {
     document.getElementById('playerModal').classList.add('hidden');
 }
@@ -96,23 +104,17 @@ function selectPlayer(player) {
                 </div>
             </div>
         `;
-        selectedField.classList.remove('selected'); // Remove 'selected' class after placing the player
+        selectedField.classList.remove('selected');
     }
 }
 
-
-
-
-
-
-
-// Filter players by position and display them
+// Filter players by position 
 function filterPlayersByPosition(position) {
     fetchPlayers((players) => {
         const filteredPlayers = players.filter((player) => player.position === position);
         const playerContainer = document.getElementById('playersContainer');
         displayPlayers(filteredPlayers, playerContainer);
-        openModal(); // Open modal after filtering
+        openModal(); 
     });
 }
 
@@ -120,7 +122,7 @@ function filterPlayersByPosition(position) {
 document.querySelectorAll('.field button').forEach((button) => {
     button.addEventListener('click', function () {
         const position = this.getAttribute('data-position');
-        this.parentElement.classList.add('selected'); // Mark the selected field
-        filterPlayersByPosition(position); // Filter and display players
+        this.parentElement.classList.add('selected'); 
+        filterPlayersByPosition(position); 
     });
 });
