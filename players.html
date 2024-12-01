@@ -9,25 +9,19 @@
     <title>Players</title>
 </head>
 
-<body class="flex justify-center items-center min-h-screen bg-gray-100 gap-7">
-
-    <nav class="bg-green-700 text-white shadow-lg absolute top-0 left-0 w-full">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <!-- Logo -->
-                <a href="#" class="text-2xl font-bold hover:text-gray-300">Squad Builder</a>
-
-                <!-- Navigation Links -->
-                <div class="flex space-x-6">
-                    <a href="index.html" class="hover:text-gray-300">Pick up Team</a>
-                    <a href="players.html" class="hover:text-gray-300">Players</a>
-                </div>
+<body class="flex flex-col items-center min-h-screen bg-gray-100 gap-7">
+    <nav class="bg-green-700 text-white shadow-lg w-full">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4 flex-wrap">
+            <a href="#" class="text-2xl font-bold hover:text-gray-300">Squad Builder</a>
+            <div class="flex space-x-6 flex-wrap">
+                <a href="index.html" class="hover:text-gray-300">Pick up Team</a>
+                <a href="players.html" class="hover:text-gray-300">Players</a>
             </div>
         </div>
     </nav>
 
-    <div id="playerContainer" class="grid grid-cols-4 gap-4 mt-24">
-        <!-- Dynamic player cards will be injected here -->
+    <div id="playerContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-24 px-4">
+        <!-- Player cards will be injected here -->
     </div>
     <script>
         const playerContainer = document.getElementById('playerContainer');

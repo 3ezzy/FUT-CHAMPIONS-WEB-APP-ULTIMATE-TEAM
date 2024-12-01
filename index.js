@@ -86,8 +86,8 @@ function selectPlayer(player) {
                     <div> ${player.name}</div>
                     <img src="${player.flag}" alt="Flag of ${player.name}" class="w-6 h-6">
                 </div>
-                <img src="${player.photo}" alt="${player.name}" class="w-12 h-12 rounded-full">
-                <div class="text-center mt-2">
+                <img  class="w-20"src="${player.photo}" alt="${player.name}" class="w-12 h-12 rounded-full">
+                <div class="text-center mt-2 flex">
                     <div>${player.position === 'GK' ? 'HAN' : 'SHO'} ${player.position === 'GK' ? player.handling : player.shooting}</div>
                         <div>${player.position === 'GK' ? 'KIC' : 'PAS'} ${player.position === 'GK' ? player.kicking : player.passing}</div>
                         <div>${player.position === 'GK' ? 'REF' : 'DRI'} ${player.position === 'GK' ? player.reflexes : player.dribbling}</div>
