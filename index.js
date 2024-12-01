@@ -7,6 +7,21 @@ const menuToggle = document.getElementById('menuToggle');
             navLinks.classList.toggle('flex');
         });
 
+
+const displayButton = document.getElementById("displayButton");
+const nameInput = document.getElementById("name");
+const displayDiv = document.getElementById("teamNameDisplay");
+
+displayButton.addEventListener("click", () => {
+    const teamName = nameInput.value.trim(); 
+
+    displayDiv.textContent = teamName
+        ? `Team : ${teamName}`
+        : "Please enter a team name.";
+});
+
+        
+
 // Fetch players from JSON and display them
 function fetchPlayers(callback) {
     fetch('data/players.json')

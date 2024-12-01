@@ -87,15 +87,18 @@
         <h1 class="text-xl font-bold mb-6 text-center">Football<br>Squad Builder</h1>
         <form id="squad-form" class="mt-8">
             <label for="name" class="block font-medium mb-2">Name:</label>
-            <input id="name" type="text" class="w-full mb-4 p-2 border border-gray-300 rounded"
-                placeholder="Enter squad name">
-
-            <label for="lineup" class="block font-medium mb-2">Lineup:</label>
-            <select id="lineup" class="w-full mb-4 p-2 border border-gray-300 rounded">
-                <option value="4-4-2">4-4-2</option>
-                
-            </select>
+            <input id="name" type="text" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter squad name">
+    
+            <button id="displayButton" type="button" class="bg-green-700 text-white px-4 py-2 rounded">Display Name</button>
         </form>
+        <label for="lineup" class="block font-medium mb-2">Lineup:</label>
+        <select id="lineup" class="w-full mb-4 p-2 border border-gray-300 rounded">
+            <option value="4-4-2">4-4-2</option>
+        </select>
+        <div id="teamNameDisplay" class="mt-4 text-center text-[#45474B] text-xl font-bold"></div>
+    </div>
+    
+        
     </div>
     <!-- <div class="absolute bottom-0 left-0 w-full flex justify-center gap-4 mt-8 bottom-[-20px]">
 
