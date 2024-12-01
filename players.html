@@ -16,6 +16,10 @@
             <a href="#" class="text-2xl font-bold hover:text-gray-300">Squad Builder</a>
 
 
+
+            
+
+
             <button id="menuToggle" class="md:hidden text-gray-300 focus:outline-none">
                 ☰
             </button>
@@ -27,6 +31,34 @@
             </div>
         </div>
     </nav>
+
+    <form action=""
+    class="my-8 bg-[#F5F7F8] p-3 flex flex-col md:flex-row w-full max-w-xl justify-between rounded-md gap-4">
+    <div class="w-full md:w-auto flex flex-col items-center">
+        <label class="text-blue-950 font-bold text-lg mb-2">Filter Positions</label>
+        <select name="filter" id="posFilter"
+            class="border-2 rounded-md text-center border-black text-sm w-full md:w-[10rem] p-2">
+            <option value="all">All Players</option>
+            <option value="FW">Forwards</option>
+            <option value="MD">Midfielders</option>
+            <option value="DF">Defenders</option>
+            <option value="GK">Goalkepers</option>
+        </select>
+    </div>
+    <div class="w-full md:w-auto flex flex-col items-center">
+        <label class="text-blue-950 font-bold text-lg mb-2">Sort Players</label>
+        <select name="sort" id="sort"
+            class="border-2 rounded-md border-black text-sm w-full md:w-[10rem] p-2 text-center">
+            <option value="order">Order</option>
+            <option value="desc">Rating Desc.</option>
+            <option value="asc">Rating Asc.</option>
+            <option value="az">Name A-Z</option>
+            <option value="za">Name Z-A</option>
+        </select>
+    </div>
+</form>
+
+
 
 
     <div id="playerContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-24 px-4">
