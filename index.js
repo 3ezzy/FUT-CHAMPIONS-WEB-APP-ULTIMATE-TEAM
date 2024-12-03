@@ -1,26 +1,32 @@
 
 const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+const navLinks = document.getElementById('navLinks');
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('hidden');
-            navLinks.classList.toggle('flex');
-        });
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('hidden');
+    navLinks.classList.toggle('flex');
+});
 
 
 const displayButton = document.getElementById("displayButton");
 const nameInput = document.getElementById("name");
 const displayDiv = document.getElementById("teamNameDisplay");
 
+
+
 displayButton.addEventListener("click", () => {
-    const teamName = nameInput.value.trim(); 
+    const teamName = nameInput.value.trim();
 
     displayDiv.textContent = teamName
         ? `Team : ${teamName}`
         : "Please enter a team name.";
 });
 
-        
+
+
+
+
+
 
 // Fetch players from JSON and display them
 function fetchPlayers(callback) {
@@ -34,12 +40,15 @@ function fetchPlayers(callback) {
         });
 }
 
+
+
+
 // Display filtered players in the modal
 function displayPlayers(players, container) {
-    container.innerHTML = ''; 
+    container.innerHTML = '';
 
     players.forEach((player) => {
-        const stats = player.position === 'GK' 
+        const stats = player.position === 'GK'
             ? `
                 <div>HAN ${player.handling}</div>
                 <div>KIC ${player.kicking}</div>
@@ -76,8 +85,20 @@ function displayPlayers(players, container) {
         `;
 
         playerCard.addEventListener('click', () => {
-            selectPlayer(player); 
-            closeModal(); 
+
+            let name = selectedP.querySelector('.player-name')
+            if(name != null){
+                name = name.innerHTML.trim();
+                if (selectedplayers.includes(name)) {
+                    const playerIndex = selectedplayers.indexOf(name);
+                    selectedplayers.splice(playerIndex, 1);
+                }
+            }
+            selectedplayers.push(player.name)
+            selectPlayer(player);
+            console.log('this is click')
+            closeModal();
+            selectedP = null;
         });
 
         container.appendChild(playerCard);
@@ -106,7 +127,7 @@ function selectPlayer(player) {
                 <div class="text-center">
                     <div>${player.rating}</div>
                     <div>${player.position}</div>
-                    <div> ${player.name}</div>
+                    <div class="player-name"> ${player.name}</div>
                     <img src="${player.flag}" alt="Flag of ${player.name}" class="w-6 h-6">
                 </div>
                 <img  class="w-20"src="${player.photo}" alt="${player.name}" class="w-12 h-12 rounded-full">
@@ -123,21 +144,46 @@ function selectPlayer(player) {
     }
 }
 
+let selectedplayers = [] 
+
 // Filter players by position 
 function filterPlayersByPosition(position) {
     fetchPlayers((players) => {
-        const filteredPlayers = players.filter((player) => player.position === position);
+        const filteredPlayers = players.filter((player) => player.position === position && !selectedplayers.includes(player.name));
         const playerContainer = document.getElementById('playersContainer');
         displayPlayers(filteredPlayers, playerContainer);
-        openModal(); 
+        openModal();
     });
 }
 
-// Add event listeners to field buttons
-document.querySelectorAll('.field button').forEach((button) => {
-    button.addEventListener('click', function () {
-        const position = this.getAttribute('data-position');
-        this.parentElement.classList.add('selected'); 
-        filterPlayersByPosition(position); 
+
+
+
+
+
+document.querySelectorAll('button[data-position]').forEach(button => {
+    button.addEventListener('click', () => {
+        const position = button.dataset.position;
+        fetchPlayers(players => {
+            const filteredPlayers = players.filter(player => player.position === position );
+            displayPlayers(filteredPlayers, document.getElementById('playersContainer'));
+            openModal();
+        });
     });
 });
+
+let selectedP = null;
+
+// Add event listeners to field buttons
+document.querySelectorAll('.field button').forEach((button) => {
+    button.parentElement.addEventListener('click', function () {
+        const position = button.getAttribute('data-position');
+        this.classList.add('selected');
+        
+        filterPlayersByPosition(position);
+
+        selectedP = this;
+         
+    });
+});
+

@@ -3,7 +3,14 @@ const navLinks = document.getElementById('navLinks');
 const playerContainer = document.getElementById('playerContainer');
 const sort = document.getElementById('sort');
 const filter = document.getElementById('posFilter');
-
+const openFormBtn = document.querySelector('#show-form');
+const formPopUp = document.querySelector('#popup-form')
+const closeFormBtn = document.querySelector('#hide-form-btn');
+const addPlayerForm = document.querySelector('#add-player-form');
+const positionInput = document.querySelector('#position-input');
+const attLabels = addPlayerForm.querySelectorAll('.att-label');
+const attInputs = addPlayerForm.querySelectorAll('.att-input');
+const inputs = addPlayerForm.querySelectorAll('input');
 let data = [];
 
 menuToggle.addEventListener('click', () => {
@@ -99,3 +106,64 @@ function updatePlayers() {
 
 sort.addEventListener('change', updatePlayers);
 filter.addEventListener('change', updatePlayers);
+
+
+openFormBtn.addEventListener('click', () => {
+    formPopUp.classList.toggle('hidden')
+  });
+  closeFormBtn.addEventListener('click', () => {
+    formPopUp.classList.toggle('hidden')
+  });
+  
+  
+  addPlayerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+  
+    const newObj = {};
+    inputs.forEach(input => {
+      let value = input.value;
+      if (input.type == 'number') {
+        value = Number(value);
+      }
+      newObj[input.name] = value;
+    });
+  
+    const stats = Array.from(attInputs);
+    const rate = stats.reduce((total, input) => {
+      return total + Number(input.value);
+    }, 0)
+    newObj.rating = Math.ceil(rate / 6);
+  
+    newObj.photo = 'img/0_.png';
+    newObj.logo = '/img/icons.webp';
+    newObj.flag = '/img/fifa_globe.png';
+    newObj.position = positionInput.value;
+  
+    // console.log(newObj);
+    data.push(newObj);
+    updatePlayers();    
+    formPopUp.classList.toggle('hidden');
+    addPlayerForm.reset();
+  });
+
+  positionInput.addEventListener('change', () => {
+  let labelNames = [];
+  let attNames = [];
+  const position = positionInput.value; 
+
+  if (position != "GK") {
+    labelNames = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]; 
+    attNames =["pace", "shooting", "passing", "dribbling", "defending", "physical"];
+  } else {
+    labelNames = ["DIV", "HAN", "KIC", "REF", "POS", "SPE"];
+    attNames = ["diving", "handling", "kicking", "reflexes", "positioning", "speed"];
+  }
+
+  attLabels.forEach((label,index)=>{
+    label.innerHTML = labelNames[index];
+  });
+  attInputs.forEach((input, index)=>{
+    input.name = attNames[index];
+  });
+
+});
