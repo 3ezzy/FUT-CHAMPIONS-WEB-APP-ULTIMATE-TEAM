@@ -11,26 +11,34 @@ const positionInput = document.querySelector('#position-input');
 const attLabels = addPlayerForm.querySelectorAll('.att-label');
 const attInputs = addPlayerForm.querySelectorAll('.att-input');
 const inputs = addPlayerForm.querySelectorAll('input');
-let data = [];
+
 
 menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('hidden');
     navLinks.classList.toggle('flex');
 });
+let data = JSON.parse(localStorage.getItem('players')) || [];
+// console.log(data, "is here")
 
 // Fetch data
-fetch('data/players.json')
+if(data.length == 0){
+    fetch('data/players.json')
     .then((response) => response.json())
     .then((jsonData) => {
-        data = jsonData.players; 
-        displayPlayers(data); 
+        let playersData = jsonData.players;
+        localStorage.setItem('players', JSON.stringify(playersData))
     })
     .catch((error) => {
         console.error('Error loading players:', error);
     });
+}
+data = JSON.parse(localStorage.getItem('players'))
+
+    displayPlayers(data);
+
 
 function displayPlayers(players) {
-    playerContainer.innerHTML = ''; 
+    playerContainer.innerHTML = '';
 
     players.forEach((player) => {
         const playerCard = document.createElement('div');
@@ -110,60 +118,63 @@ filter.addEventListener('change', updatePlayers);
 
 openFormBtn.addEventListener('click', () => {
     formPopUp.classList.toggle('hidden')
-  });
-  closeFormBtn.addEventListener('click', () => {
+});
+closeFormBtn.addEventListener('click', () => {
     formPopUp.classList.toggle('hidden')
-  });
-  
-  
-  addPlayerForm.addEventListener('submit', (e) => {
+});
+
+
+addPlayerForm.addEventListener('submit', (e) => {
     e.preventDefault();
-  
+
     const newObj = {};
     inputs.forEach(input => {
-      let value = input.value;
-      if (input.type == 'number') {
-        value = Number(value);
-      }
-      newObj[input.name] = value;
+        let value = input.value;
+        if (input.type == 'number') {
+            value = Number(value);
+        }
+        newObj[input.name] = value;
     });
-  
+
     const stats = Array.from(attInputs);
     const rate = stats.reduce((total, input) => {
-      return total + Number(input.value);
+        return total + Number(input.value);
     }, 0)
     newObj.rating = Math.ceil(rate / 6);
-  
+
     newObj.photo = 'img/0_.png';
     newObj.logo = '/img/icons.webp';
     newObj.flag = '/img/fifa_globe.png';
     newObj.position = positionInput.value;
-  
+
     // console.log(newObj);
     data.push(newObj);
-    updatePlayers();    
+
+        localStorage.setItem('players', JSON.stringify(data))
+
+    updatePlayers();
     formPopUp.classList.toggle('hidden');
     addPlayerForm.reset();
-  });
+});
 
-  positionInput.addEventListener('change', () => {
-  let labelNames = [];
-  let attNames = [];
-  const position = positionInput.value; 
+positionInput.addEventListener('change', () => {
+    let labelNames = [];
+    let attNames = [];
+    const position = positionInput.value;
 
-  if (position != "GK") {
-    labelNames = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]; 
-    attNames =["pace", "shooting", "passing", "dribbling", "defending", "physical"];
-  } else {
-    labelNames = ["DIV", "HAN", "KIC", "REF", "POS", "SPE"];
-    attNames = ["diving", "handling", "kicking", "reflexes", "positioning", "speed"];
-  }
+    if (position != "GK") {
+        labelNames = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"];
+        attNames = ["pace", "shooting", "passing", "dribbling", "defending", "physical"];
+    } else {
+        labelNames = ["DIV", "HAN", "KIC", "REF", "POS", "SPE"];
+        attNames = ["diving", "handling", "kicking", "reflexes", "positioning", "speed"];
+    }
 
-  attLabels.forEach((label,index)=>{
-    label.innerHTML = labelNames[index];
-  });
-  attInputs.forEach((input, index)=>{
-    input.name = attNames[index];
-  });
+    attLabels.forEach((label, index) => {
+        label.innerHTML = labelNames[index];
+    });
+    attInputs.forEach((input, index) => {
+        input.name = attNames[index];
+    });
 
 });
